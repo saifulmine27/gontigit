@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bn" data-mode="light">
+<head>
+<meta charset="utf-8">
+<script>try{var __t=JSON.parse(localStorage.getItem('ghonti-theme2'));if(__t==='dark'||__t==='auto'||__t==='light')document.documentElement.setAttribute('data-mode',__t)}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ঘণ্টি</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#1a1a24;--muted:#8a8a9a;--line:#ececf2;--tint:#f4f0ff;--pur:#7c3aed;--on-pur:#fff;--danger:#d92d5a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root[data-mode="auto"]{--bg:#101017;--ink:#f1f0f8;--muted:#9a99ad;--line:#25242f;--tint:#1d1830;--pur:#a78bfa;--on-pur:#14102a;--danger:#ff7a9c}}
+:root[data-mode="dark"]{--bg:#101017;--ink:#f1f0f8;--muted:#9a99ad;--line:#25242f;--tint:#1d1830;--pur:#a78bfa;--on-pur:#14102a;--danger:#ff7a9c}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;font-size:16px;line-height:1.5}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--pur);outline-offset:2px}
+.hide{display:none!important}
+#intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px}
+.mark{width:96px;height:96px;border-radius:30px;background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;box-shadow:0 14px 34px color-mix(in srgb,var(--h1) 40%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+#intro h1{font-size:44px;font-weight:600;margin:0 0 8px}
+#intro p{color:var(--muted);margin:0 0 36px;font-size:17px;max-width:26ch}
+.btn{background:var(--pur);color:var(--on-pur);border:0;border-radius:999px;padding:15px 52px;font-size:18px;font-weight:500;box-shadow:0 12px 28px color-mix(in srgb,var(--pur) 40%,transparent)}
+#app{max-width:440px;margin:0 auto;padding:20px 24px 56px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;border-radius:28px;padding:28px 24px;margin:20px 0 24px;box-shadow:0 16px 40px color-mix(in srgb,var(--h1) 35%,transparent)}
+.hero::before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero::after{content:"";position:absolute;left:-40px;bottom:-70px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero>*{position:relative;z-index:1}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:22px 20px;box-shadow:0 8px 30px color-mix(in srgb,var(--pur) 10%,transparent)}
+.ic{width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--pur);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.feats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:-16px 0 32px}
+.feats span{background:var(--tint);color:var(--pur);border-radius:999px;padding:5px 14px;font-size:14px}
+#intro::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--tint);top:-170px;right:-150px}
+#intro::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:var(--tint);bottom:-130px;left:-110px}
+#intro>*{position:relative;z-index:1}
+.gbtn{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:12px;font-weight:500;font-size:16px;color:var(--ink)}
+.auth{position:fixed;inset:0;background:var(--bg);display:none;overflow:auto;padding:24px;z-index:8}
+.auth.on{display:block}
+.tabs{display:flex;background:var(--tint);border-radius:16px;padding:4px;margin-bottom:20px}
+.tabs button{flex:1;border:0;background:none;border-radius:12px;padding:10px;font-size:15px;color:var(--muted)}
+.tabs button[aria-pressed=true]{background:var(--bg);color:var(--pur);font-weight:600;box-shadow:0 2px 10px color-mix(in srgb,var(--pur) 20%,transparent)}
+.st{font-size:12px;color:var(--pur);background:var(--tint);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.st.bad{color:var(--danger)}
+.sws{display:flex;gap:14px;justify-content:center;margin:4px 0 8px}
+.sw2{width:34px;height:34px;border-radius:50%;border:0;padding:0}
+.sw2[aria-pressed=true]{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--ink)}
+.clr{margin-top:6px}
+.wheels{position:relative;display:flex;gap:6px;justify-content:center;align-items:center;background:var(--tint);border-radius:20px;padding:6px 10px}
+.wheels::after{content:"";position:absolute;left:10px;right:10px;top:50%;height:46px;transform:translateY(-50%);border-radius:14px;background:color-mix(in srgb,var(--pur) 16%,transparent);pointer-events:none}
+.wh{height:138px;width:72px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;padding:46px 0;text-align:center;overscroll-behavior:contain}
+.wh::-webkit-scrollbar{display:none}
+.wh div{height:46px;line-height:46px;font-size:26px;font-weight:500;scroll-snap-align:center;color:var(--muted);cursor:pointer;font-variant-numeric:tabular-nums}
+.wh div.on{color:var(--pur)}
+.wcol{font-size:26px;font-weight:500;color:var(--muted)}
+.ap{display:flex;flex-direction:column;gap:6px;margin-left:8px;position:relative;z-index:1}
+.ap button{border:0;border-radius:12px;padding:8px 12px;background:var(--bg);color:var(--muted);font-weight:500}
+.ap button[aria-pressed=true]{background:var(--pur);color:var(--on-pur)}
+.dchips{display:flex;flex-wrap:wrap;gap:8px}
+.dchips button{background:none;border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:14px;color:var(--muted)}
+.dchips button[aria-pressed=true]{background:var(--pur);color:var(--on-pur);border-color:var(--pur)}
+.cal{margin-top:12px;background:var(--tint);border-radius:18px;padding:12px}
+.cal .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-weight:600}
+.cal .ch button{border:0;background:none;font-size:22px;color:var(--pur);padding:2px 12px}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cg span{font-size:12px;color:var(--muted);padding:4px 0}
+.cg button{border:0;background:none;border-radius:50%;aspect-ratio:1;font-size:14px;color:var(--ink);padding:0}
+.cg button.sel{background:var(--pur);color:var(--on-pur)}
+.cg button.dis{color:var(--muted);opacity:.35}
+.ts,.ls{display:flex;background:var(--tint);border-radius:999px;padding:3px}
+.ts button,.ls button{border:0;background:none;border-radius:999px;padding:4px 10px;font-size:13px;color:var(--muted)}
+.ts button[aria-pressed=true],.ls button[aria-pressed=true]{background:var(--pur);color:var(--on-pur)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+#intro .ts{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;z-index:2}
+#intro .ls{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));left:16px;z-index:2}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.logo{display:inline-flex;align-items:center;gap:8px;background:none;border:0;padding:0;font-size:18px;font-weight:600;color:var(--pur)}
+.clock{font-size:64px;font-weight:500;letter-spacing:-2px;line-height:1;margin:0 0 6px;font-variant-numeric:tabular-nums}
+.clock small{font-size:20px;letter-spacing:0;color:rgba(255,255,255,.75);margin-left:8px}
+.date{color:rgba(255,255,255,.85);font-size:15px}
+.next{margin:20px 0 0;color:#fff;font-size:15px;background:rgba(255,255,255,.18);border-radius:999px;padding:8px 16px;display:inline-block}
+.next b{color:#fff;font-weight:600}
+label{display:block;font-size:13px;color:var(--muted);margin:0 0 4px}
+input[type=text],input[type=email],input[type=password],input[type=time]{width:100%;font:inherit;color:var(--ink);background:none;border:0;border-bottom:1.5px solid var(--line);border-radius:0;padding:8px 0 10px}
+input:focus{border-bottom-color:var(--pur);outline:0}
+input[type=time]{font-size:30px;font-weight:300}
+.field{margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{background:none;border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:14px;color:var(--muted)}
+.chip:hover{border-color:var(--pur);color:var(--pur)}
+.rep{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;font-size:16px}
+.sw{position:relative;width:48px;height:28px;border-radius:14px;background:var(--line);border:0;padding:0;flex-shrink:0}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw[aria-checked=true]{background:var(--pur)}.sw[aria-checked=true]::after{transform:translateX(20px)}
+.add{width:100%;background:var(--pur);color:var(--on-pur);border:0;box-shadow:0 10px 24px color-mix(in srgb,var(--pur) 35%,transparent);border-radius:16px;padding:15px;font-size:17px;font-weight:500}
+.msg{font-size:14px;color:var(--muted);margin:10px 0 0;min-height:21px;text-align:center}
+h2{font-size:18px;font-weight:600;margin:32px 0 12px}
+.item .sw{width:38px;height:22px;border-radius:11px}
+.item .sw::after{top:3px;left:3px;width:16px;height:16px}
+.item .sw[aria-checked=true]::after{transform:translateX(16px)}
+.ic svg{width:18px;height:18px}
+.item{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:14px;margin-bottom:6px;background:var(--bg);box-shadow:0 4px 16px color-mix(in srgb,var(--pur) 8%,transparent)}
+.item .t{font-size:20px;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
+.item .n{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .m{font-size:12px;color:var(--muted)}
+.item.off .t,.item.off .n{opacity:.35}
+.grow{flex:1;min-width:0}
+.del{background:none;border:0;color:var(--muted);font-size:18px;line-height:1;padding:4px}
+.del:hover{color:var(--danger)}
+.empty{color:var(--muted);padding:24px 0;font-size:15px}
+.note{font-size:13px;color:var(--muted);margin-top:28px}
+#ring{position:fixed;inset:0;background:var(--pur);color:var(--on-pur);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:9}
+#ring.on{display:flex}
+#ring .rt{font-size:72px;font-weight:300;font-variant-numeric:tabular-nums}
+#ring .ttl{font-size:24px;margin:4px 0 40px}
+#ring button{min-width:220px;margin:6px;border-radius:14px;padding:14px;font-weight:500;font-size:17px;background:transparent;border:1.5px solid currentColor;color:inherit}
+#ring .stop{background:var(--on-pur);color:var(--pur);border-color:var(--on-pur)}
+@media (prefers-reduced-motion:no-preference){#ring.on .bell{animation:sw .6s ease-in-out infinite alternate}@keyframes sw{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}}
+</style>
+</head>
+<body>
+
+<section id="intro">
+  <div class="ls" role="group" aria-label="Language"></div>
+  <div class="ts" role="group" aria-label="থিম"></div>
+  <div class="mark"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg></div>
+  <h1>ঘণ্টি</h1>
+  <p>যা ভুলতে চান না, ঠিক সময়ে মনে করিয়ে দেবে।</p>
+  <div class="feats"><span>সহজ সেটআপ</span><span>প্রতিদিন repeat</span><span>৫ মিনিট snooze</span></div>
+  <button class="btn" id="go">শুরু করুন</button>
+  <div class="sws" style="margin-top:28px"></div>
+</section>
+
+<div id="app" class="hide">
+  <div class="top"><button class="logo" id="logo" aria-label="শুরুর পাতায় ফিরুন"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg><span>ঘণ্টি</span></button><div class="tools"><div class="ls" role="group" aria-label="Language"></div><div class="ts" role="group" aria-label="থিম"></div></div></div>
+  <div class="hero">
+    <div class="clock" id="clock">--:--</div>
+    <div class="date" id="date"></div>
+    <div class="next" id="next"></div>
+  </div>
+
+  <div class="tabs" role="tablist"><button id="tA" aria-pressed="true">অ্যালার্ম</button><button id="tH" aria-pressed="false">ইতিহাস</button></div>
+  <div id="vA"><div class="card"><div class="field"><label for="title">কী মনে করিয়ে দেব?</label><input type="text" id="title" placeholder="ওষুধ খাওয়া"></div>
+  <div class="field" style="margin-bottom:12px"><label for="time">সময়</label><div class="wheels" id="wheels"></div><input type="time" id="time" class="hide"></div>
+  <div class="chips" id="chips"></div>
+  <div class="field" style="margin-bottom:12px"><label>তারিখ</label><div class="dchips" id="dchips"><button data-d="0" aria-pressed="true">আজ</button><button data-d="1" aria-pressed="false">কাল</button><button data-d="2" aria-pressed="false">পরশু</button><button data-d="c" id="dcal" aria-pressed="false">অন্য তারিখ</button></div><div class="cal hide" id="cal"></div></div>
+  <div class="field" style="margin-bottom:12px"><label>রিংটোন</label><div class="dchips" id="tchips"></div></div>
+  <div class="rep"><span>প্রতিদিন repeat</span><button class="sw" id="rep" role="switch" aria-checked="false" aria-label="প্রতিদিন repeat"></button></div>
+  <button class="add" id="add">অ্যালার্ম সেট করুন</button>
+  <p class="msg" id="msg" role="status"></p></div>
+
+  <h2>আপনার অ্যালার্ম</h2>
+  <div id="list"></div>
+  <p class="note">অ্যালার্ম বাজতে এই পেজ ব্রাউজারে খোলা থাকতে হবে। ফোনের ভলিউম চালু রাখুন।</p></div>
+  <div id="vH" class="hide"><h2>ইতিহাস</h2><div id="hist"></div><button class="chip clr" id="clr">ইতিহাস মুছুন</button></div>
+  <h2>অ্যাকাউন্ট</h2><div class="card" id="acct"></div>
+  <h2>অ্যাপের রং</h2><div class="sws"></div>
+</div>
+
+<div class="auth" id="auth"></div>
+
+<div id="ring" role="alertdialog" aria-live="assertive">
+  <svg class="bell" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-bottom:20px"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg>
+  <div class="rt" id="ringTime"></div>
+  <div class="ttl" id="ringTitle"></div>
+  <button class="stop" id="stop">বন্ধ করুন</button>
+  <button id="snooze">৫ মিনিট পরে</button>
+</div>
+
+<script src="firebase-app-compat.js"></script>
+<script src="firebase-auth-compat.js"></script>
+<script src="firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+var KEY="ghonti-v1",SEEN="ghonti-seen",list=[],ctx=null,bt=null,cur=null,daily=false,KH="ghonti-hist",hist=[],curH=null,CK="ghonti-color";
+var BELL='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg>';
+var $=function(i){return document.getElementById(i)};
+function ld(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}try{if(k===KEY&&window.Android)Android.sync(JSON.stringify(v))}catch(e){}try{if((k===KEY||k===KH)&&!applying){localStorage.setItem('ghonti-upd',Date.now());schedPush()}}catch(e){}}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(ts){var d=new Date(ts),h=d.getHours(),ap=h>=12?"PM":"AM";h=h%12||12;return pad(h)+":"+pad(d.getMinutes())+" "+ap}
+function bn(n){return n.toLocaleString(loc())}
+function dayL(ts){var a=new Date(ts),n=new Date();a.setHours(0,0,0,0);n.setHours(0,0,0,0);var d=Math.round((a-n)/864e5);return d<=0?T('আজ'):d===1?T('কাল'):a.toLocaleDateString(loc())}
+function nextAt(h,m){var d=new Date();d.setHours(h,m,0,0);if(d.getTime()<=Date.now())d.setDate(d.getDate()+1);return d.getTime()}
+function audio(){try{if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume()}catch(e){}}
+function beepOld(){if(!ctx)return;var t=ctx.currentTime;[0,.3,.6,1.0,1.3].forEach(function(o,i){var s=ctx.createOscillator(),g=ctx.createGain();s.type="triangle";s.frequency.value=i%2?988:784;g.gain.setValueAtTime(0,t+o);g.gain.linearRampToValueAtTime(.35,t+o+.02);g.gain.exponentialRampToValueAtTime(.001,t+o+.5);s.connect(g);g.connect(ctx.destination);s.start(t+o);s.stop(t+o+.55)});if(navigator.vibrate)navigator.vibrate([200,100,200])}
+function addHist(t,s,ts){var h={id:Date.now()+Math.random(),title:t,st:s,at:ts||Date.now()};hist.unshift(h);hist=hist.slice(0,50);sv(KH,hist);renderHist();return h.id}
+function setHist(id,s){hist.forEach(function(h){if(h.id===id)h.st=s});sv(KH,hist);renderHist()}
+function renderHist(){var el=$("hist");if(!hist.length){el.innerHTML='<div class="empty">'+T('এখনও কোনো ইতিহাস নেই। অ্যালার্ম বাজলে এখানে জমা হবে।')+'</div>';$("clr").classList.add("hide");return}
+$("clr").classList.remove("hide");el.innerHTML="";hist.forEach(function(h){var d=document.createElement("div");d.className="item";d.innerHTML='<div class="ic">'+BELL+'</div><div class="grow"><div class="n"></div><div class="m"></div></div><div class="st"></div>';d.querySelector(".n").textContent=T(h.title);d.querySelector(".m").textContent=dayL(h.at)+", "+fmt(h.at);var s=d.querySelector(".st");s.textContent=T(h.st);if(h.st.indexOf("মিস")===0)s.className="st bad";el.appendChild(d)})}
+function startRing(r){cur=r;curH=addHist(r.title,"বেজেছে");$("ringTime").textContent=fmt(Date.now());$("ringTitle").textContent=T(r.title);$("ring").classList.add("on");audio();beep();clearInterval(bt);bt=setInterval(beep,2000);
+  try{if("Notification"in window&&Notification.permission==="granted")new Notification(T('ঘণ্টি'),{body:T(r.title),requireInteraction:true})}catch(e){}}
+function stopRing(){clearInterval(bt);$("ring").classList.remove("on");cur=null}
+function render(){
+  var el=$("list");list.sort(function(a,b){return a.at-b.at});
+  if(!list.length){el.innerHTML='<div class="empty">'+T('এখনও কোনো অ্যালার্ম নেই।')+'</div>';return}
+  el.innerHTML="";
+  list.forEach(function(r){
+    var d=document.createElement("div");d.className="item"+(r.on?"":" off");
+    d.innerHTML='<div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></svg></div><div class="grow"><div class="t"></div><div class="n"></div><div class="m"></div></div><button class="sw" role="switch" aria-label="'+T('চালু বা বন্ধ')+'"></button><button class="del" aria-label="'+T('মুছুন')+'">×</button>';
+    d.querySelector(".t").textContent=fmt(r.at);d.querySelector(".n").textContent=T(r.title);
+    d.querySelector(".m").textContent=toneName(r.tone)+' · '+(r.daily?T('প্রতিদিন'):dayL(r.at));
+    var sw=d.querySelector(".sw");sw.setAttribute("aria-checked",r.on);
+    sw.onclick=function(){r.on=!r.on;if(r.on){var x=new Date(r.at);r.at=nextAt(x.getHours(),x.getMinutes())}sv(KEY,list);render();upNext()};
+    d.querySelector(".del").onclick=function(){list=list.filter(function(x){return x.id!==r.id});sv(KEY,list);render();upNext()};
+    el.appendChild(d)});
+}
+function upNext(){
+  var best=null;list.forEach(function(r){if(r.on&&(!best||r.at<best.at))best=r});
+  if(!best){$("next").textContent=T('কোনো অ্যালার্ম চালু নেই');return}
+  var s=Math.max(0,Math.round((best.at-Date.now())/1000)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),p=[];
+  if(h)p.push(bn(h)+T(' ঘণ্টা'));if(m||!h)p.push(bn(m)+T(' মিনিট'));
+  $("next").innerHTML=lang==='en'?'Next alarm in <b>'+p.join(' ')+'</b>':'পরের অ্যালার্ম <b>'+p.join(' ')+'</b> পরে'}
+var lastMin=-1;
+function tick(){
+  var n=new Date(),h=n.getHours(),ap=h>=12?"PM":"AM";h=h%12||12;
+  $("clock").innerHTML=pad(h)+":"+pad(n.getMinutes())+"<small>"+ap+"</small>";
+  $("date").textContent=n.toLocaleDateString(loc(),{weekday:"long",day:"numeric",month:"long"});
+  if(n.getMinutes()!==lastMin){lastMin=n.getMinutes();upNext()}
+  if(cur)return;var now=Date.now();
+  for(var i=0;i<list.length;i++){var r=list[i];
+    if(r.on&&now>=r.at){var late=now-r.at>90000,fa=r.at;
+      if(r.daily){var x=new Date(r.at);r.at=nextAt(x.getHours(),x.getMinutes())}else r.on=false;
+      sv(KEY,list);render();upNext();
+      if(!late){startRing(r);return}else addHist(r.title,"মিস হয়েছে",fa)}}
+}
+function enter(){$("intro").classList.add("hide");$("app").classList.remove("hide");syncPicker();window.scrollTo(0,0);sv(SEEN,1)}
+[["সকাল ৭টা","07:00"],["দুপুর ২টা","14:00"],["সন্ধ্যা ৬টা","18:00"],["রাত ১০টা","22:00"]].forEach(function(c){
+  var b=document.createElement("button");b.className="chip";b.textContent=c[0];b.onclick=function(){$("time").value=c[1];syncPicker()};$("chips").appendChild(b)});
+var COL={purple:["#7c3aed","#f4f0ff","#a78bfa","#1d1830","#14102a","#6d28d9","#c084fc","বেগুনি"],blue:["#2563eb","#eaf1ff","#60a5fa","#14203a","#0b1530","#1d4ed8","#60a5fa","নীল"],green:["#059669","#e6f7f0","#34d399","#0f2a22","#06251a","#047857","#34d399","সবুজ"],orange:["#ea580c","#fff0e6","#fb923c","#2e1c10","#2e1204","#c2410c","#fb923c","কমলা"],pink:["#db2777","#ffe9f3","#f472b6","#2e1424","#2e0a1b","#be185d","#f472b6","গোলাপি"]};
+var curC=ld(CK,"purple");if(!COL[curC])curC="purple";
+function isDark(){var t=document.documentElement.getAttribute("data-mode");return t==="dark"||(t==="auto"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)}
+function setColor(k){var c=COL[k]||COL.purple,d=isDark(),s=document.documentElement.style;s.setProperty("--pur",d?c[2]:c[0]);s.setProperty("--tint",d?c[3]:c[1]);s.setProperty("--on-pur",d?c[4]:"#fff");s.setProperty("--h1",c[5]);s.setProperty("--h2",c[6]);curC=k;sv(CK,k);Array.prototype.forEach.call(document.querySelectorAll(".sw2"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-c")===k)})}
+Array.prototype.forEach.call(document.querySelectorAll(".sws"),function(box){Object.keys(COL).forEach(function(k){var b=document.createElement("button");b.className="sw2";b.setAttribute("data-c",k);b.setAttribute("aria-label",COL[k][7]);b.style.background=COL[k][5];b.onclick=function(){setColor(k)};box.appendChild(b)})});
+try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){setColor(curC)})}catch(e){}
+function showTab(h){$("vA").classList.toggle("hide",h);if(!h)syncPicker();$("vH").classList.toggle("hide",!h);$("tA").setAttribute("aria-pressed",!h);$("tH").setAttribute("aria-pressed",h)}
+$("tA").onclick=function(){showTab(false)};$("tH").onclick=function(){showTab(true)};
+$("clr").onclick=function(){hist=[];sv(KH,hist);renderHist()};
+var LK='ghonti-lang',lang=ld(LK,'bn');if(lang!=='en')lang='bn';
+var EN={'অ্যাকাউন্ট':'Account','রিংটোন':'Ringtone','তারিখ':'Date','পরশু':'Day after','অন্য তারিখ':'Pick date','ঘণ্টি':'Ghonti','যা ভুলতে চান না, ঠিক সময়ে মনে করিয়ে দেবে।':'Never forget what matters. Ghonti reminds you right on time.','সহজ সেটআপ':'Easy setup','প্রতিদিন repeat':'Repeat daily','৫ মিনিট snooze':'5-min snooze','শুরু করুন':'Get started','অ্যালার্ম':'Alarms','ইতিহাস':'History','কী মনে করিয়ে দেব?':'What should I remind you of?','ওষুধ খাওয়া':'Take medicine','সময়':'Time','অ্যালার্ম সেট করুন':'Set alarm','আপনার অ্যালার্ম':'Your alarms','অ্যালার্ম বাজতে এই পেজ ব্রাউজারে খোলা থাকতে হবে। ফোনের ভলিউম চালু রাখুন।':'Keep this page open in your browser for alarms to ring. Turn up your phone volume.','ইতিহাস মুছুন':'Clear history','বন্ধ করুন':'Stop','৫ মিনিট পরে':'Snooze 5 min','অ্যাপের রং':'App color','অটো':'Auto','লাইট':'Light','ডার্ক':'Dark','থিম':'Theme','শুরুর পাতায় ফিরুন':'Back to start','চালু বা বন্ধ':'Turn on or off','মুছুন':'Delete','সকাল ৭টা':'7 AM','দুপুর ২টা':'2 PM','সন্ধ্যা ৬টা':'6 PM','রাত ১০টা':'10 PM','বেগুনি':'Purple','নীল':'Blue','সবুজ':'Green','কমলা':'Orange','গোলাপি':'Pink','প্রতিদিন':'Daily','আজ':'Today','কাল':'Tomorrow','বেজেছে':'Rang','বন্ধ করা হয়েছে':'Dismissed','স্নুজ করা হয়েছে':'Snoozed','মিস হয়েছে':'Missed','এখনও কোনো অ্যালার্ম নেই।':'No alarms yet.','এখনও কোনো ইতিহাস নেই। অ্যালার্ম বাজলে এখানে জমা হবে।':'No history yet. Alarms will show up here once they ring.','সময় বেছে নিন।':'Choose a time.','সেট হয়েছে: ':'Set: ','কোনো অ্যালার্ম চালু নেই':'No alarms on',' ঘণ্টা':' h',' মিনিট':' min'};
+function T(s){return lang==='en'&&EN[s]!==undefined?EN[s]:s}
+function loc(){return lang==='en'?'en-US':'bn-BD'}
+function applyLang(){
+ document.documentElement.lang=lang;document.title=T('ঘণ্টি');
+ Array.prototype.forEach.call(document.querySelectorAll('.ls button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===lang)});
+ render();renderHist();upNext();buildCal();updDChips();buildTones();acctRender();
+ Array.prototype.forEach.call(document.querySelectorAll('body *'),function(el){
+  if(el.tagName==='SCRIPT')return;
+  if(el.children.length===0){var o=el.getAttribute('data-bn');
+   if(o!==null&&el.textContent!==o&&el.textContent!==EN[o]){el.removeAttribute('data-bn');o=null}
+   if(o===null){var tx=el.textContent.trim();if(EN[tx]!==undefined){o=tx;el.setAttribute('data-bn',tx)}}
+   if(o!==null)el.textContent=T(o)}
+  ['placeholder','aria-label'].forEach(function(a){var k='data-bn-'+a,o2=el.getAttribute(k);if(o2===null){var v=el.getAttribute(a);if(v&&EN[v]!==undefined){o2=v;el.setAttribute(k,v)}}if(o2!==null)el.setAttribute(a,T(o2))})});
+ tick()}
+Array.prototype.forEach.call(document.querySelectorAll('.ls'),function(box){[['bn','বাংলা'],['en','English']].forEach(function(o){var b=document.createElement('button');b.textContent=o[1];b.setAttribute('data-l',o[0]);b.onclick=function(){lang=o[0];sv(LK,lang);applyLang()};box.appendChild(b)})});
+var selDate=null,apv='AM',lockT=0,calM=new Date(),hw,mw;calM.setDate(1);
+function mkWheel(n,start){var el=document.createElement('div');el.className='wh';var tm;
+ for(var i=0;i<n;i++){var d=document.createElement('div');d.textContent=pad(i+start);(function(ii){d.onclick=function(){el.scrollTo({top:ii*46,behavior:'smooth'})}})(i);el.appendChild(d)}
+ el.onscroll=function(){clearTimeout(tm);tm=setTimeout(function(){if(Date.now()<lockT||el.offsetParent===null)return;wsel(el);pushTime()},90)};return el}
+function widx(el){return Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/46)))}
+function wsel(el){var i=widx(el);Array.prototype.forEach.call(el.children,function(c,j){c.className=j===i?'on':''})}
+function setWheel(el,i){lockT=Date.now()+250;el.scrollTop=i*46;wsel(el)}
+function pushTime(){var h12=widx(hw)+1,m=widx(mw);$('time').value=pad((h12%12)+(apv==='PM'?12:0))+':'+pad(m)}
+function updAp(){Array.prototype.forEach.call($('wheels').querySelectorAll('.ap button'),function(b){b.setAttribute('aria-pressed',b.textContent===apv)})}
+function syncPicker(){var p=($('time').value||'07:00').split(':'),h=+p[0],m=+p[1];apv=h>=12?'PM':'AM';setWheel(hw,(h%12||12)-1);setWheel(mw,m);updAp()}
+(function(){var w=$('wheels');hw=mkWheel(12,1);mw=mkWheel(60,0);var c=document.createElement('span');c.className='wcol';c.textContent=':';var ap=document.createElement('div');ap.className='ap';['AM','PM'].forEach(function(v){var b=document.createElement('button');b.textContent=v;b.onclick=function(){apv=v;updAp();pushTime()};ap.appendChild(b)});w.appendChild(hw);w.appendChild(c);w.appendChild(mw);w.appendChild(ap);var d0=new Date();$('time').value=pad(d0.getHours())+':'+pad(d0.getMinutes())})();
+function isoOf(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function dayPlus(k){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+k);return d}
+function atFor(h,m){if(!selDate)return nextAt(h,m);var p=selDate.split('-'),t=new Date(+p[0],+p[1]-1,+p[2],h,m,0,0).getTime();return t>Date.now()?t:nextAt(h,m)}
+function updDChips(){var s=selDate,t1=isoOf(dayPlus(1)),t2=isoOf(dayPlus(2));Array.prototype.forEach.call($('dchips').children,function(b){var k=b.getAttribute('data-d'),on;if(k==='0')on=!s;else if(k==='1')on=s===t1;else if(k==='2')on=s===t2;else on=!!s&&s!==t1&&s!==t2;b.setAttribute('aria-pressed',on)});
+ var c=$('dcal');if(s&&s!==t1&&s!==t2){var q=s.split('-');c.textContent=new Date(+q[0],+q[1]-1,+q[2]).toLocaleDateString(loc(),{day:'numeric',month:'short'})}else c.textContent=T('অন্য তারিখ')}
+function buildCal(){var el=$('cal');el.innerHTML='';var y=calM.getFullYear(),mo=calM.getMonth(),today=dayPlus(0);
+ var head=document.createElement('div');head.className='ch';
+ var pv=document.createElement('button');pv.textContent='‹';pv.setAttribute('aria-label',lang==='en'?'Previous month':'আগের মাস');
+ var nx=document.createElement('button');nx.textContent='›';nx.setAttribute('aria-label',lang==='en'?'Next month':'পরের মাস');
+ var tt=document.createElement('span');tt.textContent=calM.toLocaleDateString(loc(),{month:'long',year:'numeric'});
+ pv.onclick=function(){if(y>today.getFullYear()||mo>today.getMonth()){calM=new Date(y,mo-1,1);buildCal()}};
+ nx.onclick=function(){calM=new Date(y,mo+1,1);buildCal()};
+ head.appendChild(pv);head.appendChild(tt);head.appendChild(nx);el.appendChild(head);
+ var g=document.createElement('div');g.className='cg';
+ for(var i=0;i<7;i++){var s=document.createElement('span');s.textContent=new Date(2023,0,1+i).toLocaleDateString(loc(),{weekday:'narrow'});g.appendChild(s)}
+ var first=new Date(y,mo,1).getDay(),dim=new Date(y,mo+1,0).getDate();
+ for(var k=0;k<first;k++)g.appendChild(document.createElement('i'));
+ for(var d=1;d<=dim;d++){(function(d){var bt=document.createElement('button'),dt=new Date(y,mo,d),iso=isoOf(dt);bt.textContent=bn(d);
+  if(dt<today){bt.className='dis';bt.setAttribute('aria-disabled','true')}else{if(iso===selDate)bt.className='sel';bt.onclick=function(){selDate=iso;updDChips();$('cal').classList.add('hide')}}g.appendChild(bt)})(d)}
+ el.appendChild(g)}
+Array.prototype.forEach.call($('dchips').children,function(b){b.onclick=function(){var k=b.getAttribute('data-d');if(k==='c'){$('cal').classList.toggle('hide');buildCal();return}$('cal').classList.add('hide');selDate=k==='0'?null:isoOf(dayPlus(+k));updDChips()}});
+var TONES=[{id:'bell',n:['ঘণ্টা','Bell']},{id:'classic',n:['ক্লাসিক','Classic']},{id:'chime',n:['চাইম','Chime']},{id:'digital',n:['ডিজিটাল','Digital']},{id:'melody',n:['সুর','Melody']},{id:'siren',n:['সাইরেন','Siren']},{id:'bird',n:['পাখি','Birds']}],selTone='bell';
+function toneName(id){for(var i=0;i<TONES.length;i++)if(TONES[i].id===id)return TONES[i].n[lang==='en'?1:0];return TONES[0].n[lang==='en'?1:0]}
+function nt(f,s,d,ty,v,f2){var o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+s;o.type=ty;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.linearRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+d+.05)}
+function playTone(id){audio();if(!ctx)return;var i;
+ if(id==='classic'){for(i=0;i<4;i++)nt(880,i*.4,.25,'square',.18)}
+ else if(id==='chime'){[523,659,784,1047].forEach(function(f,k){nt(f,k*.35,.9,'sine',.35)})}
+ else if(id==='digital'){for(i=0;i<8;i++)nt(i%2?900:1300,i*.18,.14,'square',.15)}
+ else if(id==='melody'){[659,784,880,784,659,523].forEach(function(f,k){nt(f,k*.3,.5,'sine',.35)})}
+ else if(id==='siren'){nt(600,0,.9,'sawtooth',.2,1000);nt(1000,.9,.9,'sawtooth',.2,600)}
+ else if(id==='bird'){for(i=0;i<6;i++)nt(1800+(i%3)*200,i*.22,.15,'sine',.3,2400+(i%2)*300)}
+ else{[0,.3,.6,1,1.3].forEach(function(o,k){nt(k%2?988:784,o,.5,'triangle',.35)})}}
+function beep(){playTone(cur&&cur.tone||'bell');if(navigator.vibrate)navigator.vibrate([200,100,200])}
+function buildTones(){var box=$('tchips');box.innerHTML='';TONES.forEach(function(t){var b=document.createElement('button');b.textContent='♪ '+t.n[lang==='en'?1:0];b.setAttribute('aria-pressed',t.id===selTone);b.onclick=function(){selTone=t.id;playTone(t.id);buildTones()};box.appendChild(b)})}
+
+function L(b,e){return lang==='en'?e:b}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+var fb={ready:false,user:null},applying=false,pushT=null,syncSt='';
+function fbInit(){try{var c=window.FIREBASE_CONFIG;if(!window.firebase||!c||!c.apiKey||c.apiKey.indexOf('YOUR')===0){acctRender();return}
+ firebase.initializeApp(c);fb.auth=firebase.auth();fb.db=firebase.firestore();fb.ready=true;
+ fb.auth.onAuthStateChanged(function(u){fb.user=u;acctRender();if(u){closeAuth();pullSync()}else maybeAuth()})}catch(e){acctRender()}}
+function maybeAuth(){var skip=false;try{skip=!!localStorage.getItem('ghonti-skip')}catch(e){}if(fb.ready&&!fb.user&&!skip&&!$('app').classList.contains('hide'))openAuth()}
+function schedPush(){if(!fb.user)return;clearTimeout(pushT);pushT=setTimeout(pushSync,1500)}
+function pushSync(){if(!fb.user)return;var up=+localStorage.getItem('ghonti-upd')||Date.now();
+ fb.db.collection('users').doc(fb.user.uid).set({list:JSON.stringify(list),hist:JSON.stringify(hist),updated:up,email:fb.user.email||'',lastSeen:Date.now()},{merge:true})
+ .then(function(){syncSt=L('সিঙ্ক হয়েছে ✓ ','Synced ✓ ')+fmt(Date.now());acctRender()})
+ .catch(function(){syncSt=L('অফলাইন, পরে সিঙ্ক হবে','Offline, will sync later');acctRender()})}
+function pullSync(){if(!fb.user)return;
+ fb.db.collection('users').doc(fb.user.uid).get().then(function(s){var lu=+localStorage.getItem('ghonti-upd')||0;
+  if(s.exists){var d=s.data();if((d.updated||0)>lu){applying=true;try{list=JSON.parse(d.list||'[]');hist=JSON.parse(d.hist||'[]');sv(KEY,list);sv(KH,hist);localStorage.setItem('ghonti-upd',d.updated)}catch(e){}applying=false;render();renderHist();upNext();syncSt=L('সিঙ্ক হয়েছে ✓ ','Synced ✓ ')+fmt(Date.now());acctRender();return}}
+  pushSync()}).catch(function(){syncSt=L('অফলাইন, পরে সিঙ্ক হবে','Offline, will sync later');acctRender()})}
+function openAuth(){var o=$('auth');
+ o.innerHTML='<div style="max-width:400px;margin:0 auto"><h2 style="font-size:26px;margin:24px 0 4px">'+L('অ্যাকাউন্টে ঢুকুন','Sign in')+'</h2><p class="note" style="margin:0 0 20px">'+L('লগইন করলে আপনার অ্যালার্ম সব ফোনে সিঙ্ক হবে।','Sign in to sync your alarms across phones.')+'</p>'
+ +'<div class="field"><label>'+L('ইমেইল','Email')+'</label><input type="email" id="aem" autocomplete="email"></div>'
+ +'<div class="field"><label>'+L('পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)','Password (min 6 characters)')+'</label><input type="password" id="apw" autocomplete="current-password"></div>'
+ +'<button class="add" id="ain">'+L('সাইন ইন','Sign in')+'</button>'
+ +'<button class="gbtn" id="aup" style="margin-top:10px">'+L('নতুন অ্যাকাউন্ট খুলুন','Create account')+'</button>'
+ +'<button class="gbtn" id="agg" style="margin-top:10px">'+L('Google দিয়ে সাইন ইন','Continue with Google')+'</button>'
+ +'<p class="msg" id="amsg" role="status"></p>'
+ +'<button class="chip" id="afg">'+L('পাসওয়ার্ড ভুলে গেছেন?','Forgot password?')+'</button> <button class="chip" id="askip">'+L('এখন নয়','Not now')+'</button></div>';
+ $('ain').onclick=function(){authEmail(false)};$('aup').onclick=function(){authEmail(true)};$('agg').onclick=authGoogle;$('afg').onclick=authReset;
+ $('askip').onclick=function(){try{localStorage.setItem('ghonti-skip','1')}catch(e){}closeAuth()};o.classList.add('on')}
+function closeAuth(){$('auth').classList.remove('on')}
+function amsg(t){var e=$('amsg');if(e)e.textContent=t}
+function errMsg(x){var c=(x&&x.code)||'',m={'auth/invalid-email':L('ইমেইল ঠিক নয়।','Invalid email.'),'auth/invalid-credential':L('ইমেইল বা পাসওয়ার্ড ভুল।','Wrong email or password.'),'auth/wrong-password':L('পাসওয়ার্ড ভুল।','Wrong password.'),'auth/user-not-found':L('এই ইমেইলে অ্যাকাউন্ট নেই।','No account with this email.'),'auth/email-already-in-use':L('এই ইমেইলে অ্যাকাউন্ট আছে, সাইন ইন করুন।','Account already exists, please sign in.'),'auth/weak-password':L('পাসওয়ার্ড আরও বড় দিন।','Password is too weak.'),'auth/network-request-failed':L('ইন্টারনেট নেই।','No internet connection.'),'auth/too-many-requests':L('অনেকবার চেষ্টা হয়েছে, একটু পরে চেষ্টা করুন।','Too many attempts, try again later.')};return m[c]||(L('সমস্যা হয়েছে: ','Error: ')+c)}
+function authEmail(isNew){var e=$('aem').value.trim(),p=$('apw').value;if(!e||p.length<6){amsg(L('ইমেইল ও কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দিন।','Enter an email and a password of 6+ characters.'));return}
+ amsg('…');(isNew?fb.auth.createUserWithEmailAndPassword(e,p):fb.auth.signInWithEmailAndPassword(e,p)).catch(function(x){amsg(errMsg(x))})}
+function authGoogle(){if(window.Android&&Android.googleSignIn){amsg('…');Android.googleSignIn()}else fb.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(x){amsg(errMsg(x))})}
+function onGoogleToken(t){if(!t){amsg(L('Google সাইন ইন ব্যর্থ হয়েছে।','Google sign-in failed.'));return}fb.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(t)).catch(function(x){amsg(errMsg(x))})}
+function onGoogleError(c){amsg(L('Google সাইন ইন ব্যর্থ (কোড ','Google sign-in failed (code ')+c+')')}
+function authReset(){var e=$('aem').value.trim();if(!e){amsg(L('আগে ইমেইল লিখুন।','Enter your email first.'));return}fb.auth.sendPasswordResetEmail(e).then(function(){amsg(L('রিসেট লিংক ইমেইলে পাঠানো হয়েছে।','Reset link sent to your email.'))}).catch(function(x){amsg(errMsg(x))})}
+function acctRender(){var el=$('acct');if(!el)return;var h2;
+ if(!fb.ready)h2='<p class="note" style="margin:0">'+L('ক্লাউড সিঙ্ক এই সংস্করণে চালু নেই।','Cloud sync is not enabled in this build.')+'</p>';
+ else if(!fb.user)h2='<p class="note" style="margin:0 0 12px">'+L('লগইন করলে অ্যালার্ম ও ইতিহাস সব ফোনে সিঙ্ক হবে।','Sign in to sync alarms and history across phones.')+'</p><button class="add" id="aopen">'+L('সাইন ইন / সাইন আপ','Sign in / Sign up')+'</button>';
+ else h2='<div style="font-weight:600;word-break:break-all">'+esc(fb.user.email||'')+'</div><p class="note" style="margin:4px 0 12px">'+esc(syncSt)+'</p><button class="gbtn" id="async">'+L('এখনই সিঙ্ক করুন','Sync now')+'</button><button class="gbtn" id="aout" style="margin-top:8px">'+L('সাইন আউট','Sign out')+'</button><p class="note" style="margin:8px 0 0">'+L('সাইন আউট করলে এই ফোন থেকে অ্যালার্ম মুছে যাবে, ক্লাউডে থেকে যাবে।','Signing out clears alarms on this phone; they stay in the cloud.')+'</p>';
+ el.innerHTML=h2;
+ if($('aopen'))$('aopen').onclick=openAuth;
+ if($('async'))$('async').onclick=function(){pushSync();pullSync()};
+ if($('aout'))$('aout').onclick=function(){fb.auth.signOut().then(function(){applying=true;list=[];hist=[];sv(KEY,list);sv(KH,hist);try{localStorage.removeItem('ghonti-upd')}catch(e){}applying=false;render();renderHist();upNext()})}}
+var TK="ghonti-theme2";
+function setTheme(t){var r=document.documentElement;r.setAttribute("data-mode",t);sv(TK,t);setColor(curC);setTimeout(barSync,50);Array.prototype.forEach.call(document.querySelectorAll(".ts button"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-t")===t)})}
+Array.prototype.forEach.call(document.querySelectorAll(".ts"),function(box){[["auto","অটো"],["light","লাইট"],["dark","ডার্ক"]].forEach(function(o){var b=document.createElement("button");b.textContent=o[1];b.setAttribute("data-t",o[0]);b.onclick=function(){setTheme(o[0])};box.appendChild(b)})});
+setTheme(ld(TK,"light"));
+$("rep").onclick=function(){daily=!daily;this.setAttribute("aria-checked",daily)};
+$("go").onclick=function(){audio();enter();maybeAuth()};
+$("logo").onclick=function(){$("app").classList.add("hide");$("intro").classList.remove("hide")};
+$("add").onclick=function(){
+  audio();var t=$("time").value,msg=$("msg");
+  if(!t){msg.textContent=T('সময় বেছে নিন।');return}
+  var p=t.split(":"),r={id:Date.now(),title:$("title").value.trim()||"ঘণ্টি",at:atFor(+p[0],+p[1]),daily:daily,on:true,tone:selTone};
+  list.push(r);sv(KEY,list);render();upNext();$("title").value="";
+  msg.textContent=T('সেট হয়েছে: ')+dayL(r.at)+" "+fmt(r.at);
+  try{if("Notification"in window&&Notification.permission==="default")Notification.requestPermission()}catch(e){}};
+$("stop").onclick=function(){setHist(curH,"বন্ধ করা হয়েছে");stopRing()};
+$("snooze").onclick=function(){var r=cur;setHist(curH,"স্নুজ করা হয়েছে");stopRing();if(r){list.push({id:Date.now(),title:r.title,at:Date.now()+3e5,daily:false,on:true,tone:r.tone});sv(KEY,list);render();upNext()}};
+document.addEventListener("click",audio);
+list=ld(KEY,[]);hist=ld(KH,[]);
+function nativeFired(){try{if(!window.Android)return;var f=JSON.parse(Android.takeFired()||'[]');if(!f.length)return;f.forEach(function(x){list.forEach(function(r){if(r.id===x.id&&r.on){addHist(r.title,'বেজেছে',x.ts);if(r.daily){var d=new Date(r.at);r.at=nextAt(d.getHours(),d.getMinutes())}else r.on=false}})});sv(KEY,list);render();upNext()}catch(e){}}
+function barSync(){try{if(window.Android)Android.setBars(getComputedStyle(document.body).backgroundColor)}catch(e){}}
+nativeFired();
+var n0=Date.now();list.forEach(function(r){if(r.on&&r.at<n0-90000){addHist(r.title,"মিস হয়েছে",r.at);if(r.daily){var x=new Date(r.at);r.at=nextAt(x.getHours(),x.getMinutes())}else r.on=false}});
+sv(KEY,list);render();renderHist();tick();setInterval(tick,1000);
+fbInit();applyLang();if(ld(SEEN,0))enter();
+</script>
+</body>
+</html>
